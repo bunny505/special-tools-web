@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Classic Tools Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* 🔴 PASTE YOUR FIREBASE CONFIG HERE */
+const firebaseConfig = {
+  apiKey: "AIzaSyBMmV2DF_pWshZ-23O_MXKTS1EvDHuQSH4",
+  authDomain: "classic-tools-ebaa9.firebaseapp.com",
+  projectId: "classic-tools-ebaa9",
+  storageBucket: "classic-tools-ebaa9.firebasestorage.app",
+  messagingSenderId: "506888742437",
+  appId: "1:506888742437:web:4185fdd37abff10c0041cc"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.signup = async function(){
+
+let name=document.getElementById("name").value;
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+let confirmPassword=document.getElementById("confirmPassword").value;
+
+if(!name || !email || !password || !confirmPassword){
+alert("Fill all fields");
+return;
+}
+
+if(password !== confirmPassword){
+alert("Passwords do not match");
+return;
+}
+
+await addDoc(collection(db,"users"),{
+name,email,password
+});
+
+localStorage.setItem("signupDone","yes");
+location.reload();
+
+}
+</script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+
+body{
+background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+}
+
+/* Signup */
+
+#signupPage{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.signup-box{
+background:rgba(255,255,255,0.05);
+padding:40px;
+border-radius:15px;
+width:320px;
+text-align:center;
+backdrop-filter:blur(10px);
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:none;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:10px;
+border:none;
+border-radius:5px;
+background:#0072ff;
+color:white;
+cursor:pointer;
+}
+
+/* Main Site */
+
+#mainSite{display:none;}
+
+header{
+text-align:center;
+padding:60px 20px;
+}
+
+header h1{font-size:40px;margin-bottom:10px}
+
+.tools{
+padding:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+max-width:1100px;
+margin:auto;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:15px;
+text-align:center;
+transition:0.3s;
+backdrop-filter:blur(10px);
+}
+
+.card:hover{
+transform:translateY(-8px);
+background:rgba(255,255,255,0.1);
+}
+
+.btn{
+display:inline-block;
+padding:10px 20px;
+border-radius:30px;
+text-decoration:none;
+color:white;
+background:linear-gradient(45deg,#00c6ff,#0072ff);
+margin-top:10px;
+}
+
+.about,.contact{
+text-align:center;
+padding:50px 20px;
+}
+
+footer{
+text-align:center;
+padding:20px;
+opacity:0.7;
+}
+</style>
+
+</head>
+<body>
+
+<!-- SIGNUP PAGE -->
+
+<div id="signupPage">
+<div class="signup-box">
+<h2>Signup</h2>
+<input id="name" placeholder="Name">
+<input id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<input type="password" id="confirmPassword" placeholder="Confirm Password">
+<button onclick="signup()">Signup</button>
+</div>
+</div>
+
+<!-- MAIN WEBSITE -->
+
+<div id="mainSite">
+
+<header>
+<h1>Classic Tools Hub</h1>
+<p>Premium Collection of Powerful Online Tools</p>
+</header>
+
+<section class="tools">
+
+<div class="card">
+<h3>Image Tool</h3>
+<p>Resize & compress images easily.</p>
+<a href="#" class="btn">Open Tool</a>
+</div>
+
+<div class="card">
+<h3>Password Generator</h3>
+<p>Create strong secure passwords.</p>
+<a href="#" class="btn">Open Tool</a>
+</div>
+
+<div class="card">
+<h3>Converter</h3>
+<p>Convert files & formats instantly.</p>
+<a href="#" class="btn">Open Tool</a>
+</div>
+
+<div class="card">
+<h3>SEO Tool</h3>
+<p>Boost your website ranking.</p>
+<a href="#" class="btn">Open Tool</a>
+</div>
+
+<div class="card">
+<h3>Developer Tool</h3>
+<p>Useful tools for coders.</p>
+<a href="#" class="btn">Open Tool</a>
+</div>
+
+<div class="card">
+<h3>Text Formatter</h3>
+<p>Edit and format text easily.</p>
+<a href="#" class="btn">Open Tool</a>
+</div>
+
+</section>
+
+<section class="about">
+<h2>About Me</h2>
+<p>I created Classic Tools Hub to provide professional and fast online tools for everyone.</p>
+</section>
+
+<section class="contact">
+<h2>Contact</h2>
+<p>Email: admin@classictools.com</p>
+<p>Location: Pakistan</p>
+<p><a href="https://special-tool-web-admin-panel.vercel.app" target="_blank" style="color:#00c6ff;">Open Admin Panel</a></p>
+</section>
+
+<footer>
+© 2026 Classic Tools Hub
+</footer>
+
+</div>
+
+<script>
+if(localStorage.getItem("signupDone")){
+signupPage.style.display="none";
+mainSite.style.display="block";
+}
+</script>
+
+</body>
+</html>
